@@ -11,23 +11,34 @@ class Table extends Component {
     };
 
     getAlive = a => a? 'SI' : 'NO';
-    getAction = a => a? 'matar' : 'revivir';
+    action = alive => alive? 'matar' : 'revivir';
+    painting = user => user.alive? 'bg-success' : 'bg-danger';
 
     handlerToggleAlive = (user) => {
-        const u = this.state.users.findIndex(e => e.id === user.id)
+        //const u = this.state.users.findIndex(e => e.id === user.id)
         return (event) => {
-            const nL = this.state.users[u];
+            const nL = this.state.users[user.id-1];
             nL.alive = !nL.alive;
+            
             console.log(event.target, user);
-            // this.setState ({
-            //     users,
-            // })
+            this.setState (
+                users,
+            )
         }
+    };
+
+    myHandleTogleAlive = (usr) => {
+        return ( () => {
+            this.state.users[usr.id-1].alive = !usr.alive
+            this.setState(
+                users,
+            )
+        })
     }
 
     render(){
         return(
-            <TableRS>
+            <TableRS striped bordered hover>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -39,13 +50,13 @@ class Table extends Component {
                 </thead>
                 <tbody>
                         {this.state.users.map(usr => (
-                        <tr key = {usr.id}>
+                        <tr className = {this.painting(usr)} key = {usr.id}>
                             <td>{usr.id}</td>
                             <td>{usr.name}</td>
                             <td>{usr.age}</td>
                             <td>{this.getAlive(usr.alive)}</td>
                             <td>
-                                <Button onClick= {this.handlerToggleAlive(usr)}> {this.getAction(usr.alive)}</Button>
+                                <Button onClick = {this.myHandleTogleAlive(usr)} >  {this.action(usr.alive)}    </Button>
                             </td>
                         </tr>
                         )
@@ -54,8 +65,8 @@ class Table extends Component {
             </TableRS>
         );
     } 
-
-
 }
+
+//<Button color= "primary" onClick= {this.handlerToggleAlive(usr)}> {this.getAction(usr.alive)}</Button>
 
 export default Table;
