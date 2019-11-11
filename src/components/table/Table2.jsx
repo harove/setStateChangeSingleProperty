@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {users} from '../../utils/mock-data';
-import {Button, Table as TableRS} from 'reactstrap'
+import {Table as TableRS} from 'reactstrap';
+import Tr from '../tr/Tr';
 
-class Table extends Component {
+class Table2 extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -10,8 +11,8 @@ class Table extends Component {
         };
     };
 
-    getAlive = a => a? 'SI' : 'NO';
-    action = alive => alive? 'matar' : 'revivir';
+
+  
     painting = user => user.alive? 'bg-success' : 'bg-danger';
 
     handlerToggleAlive = (user) => {
@@ -27,14 +28,7 @@ class Table extends Component {
         }
     };
 
-    myHandleTogleAlive = (usr) => {
-        return ( () => {
-            this.state.users[usr.id-1].alive = !usr.alive
-            this.setState(
-                users,
-            )
-        })
-    }
+
 
     render(){
         return(
@@ -50,15 +44,7 @@ class Table extends Component {
                 </thead>
                 <tbody>
                         {this.state.users.map(usr => (
-                        <tr className = {this.painting(usr)} key = {usr.id}>
-                            <td>{usr.id}</td>
-                            <td>{usr.name}</td>
-                            <td>{usr.age}</td>
-                            <td>{this.getAlive(usr.alive)}</td>
-                            <td>
-                                <Button onClick = {this.myHandleTogleAlive(usr)} >  {this.action(usr.alive)} </Button>
-                            </td>
-                        </tr>
+                            <Tr usr = {usr} > </Tr>
                         )
                         )}
                 </tbody>
@@ -69,4 +55,4 @@ class Table extends Component {
 
 //<Button color= "primary" onClick= {this.handlerToggleAlive(usr)}> {this.getAction(usr.alive)}</Button>
 
-export default Table;
+export default Table2;
