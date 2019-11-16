@@ -3,23 +3,24 @@ import {Card as CardRS, CardBody,CardImg,CardTitle,CardSubtitle, Container, Col,
 import {users} from '../../utils/mock-data'
 
 
-class Card extends Component {
+class ListCards extends Component {
     constructor(props){
         super(props);
         this.state = {
-            users: users
+            users : users,
+            test: true
         }
     }
 
-    handleOnClick(userId){
-        return( () => {
-            this.state.users[userId-1].alive = !this.state.users[userId-1].alive;
-            this.setState(
-                users,
-            )
-        }
-        )
-    }
+    handleOnClick = (usrId) =>{ 
+            return( () => {
+                this.setState((state)=>{
+                    state.users[usrId-1].alive = !state.users[usrId-1].alive;
+                    return state.users;
+                }
+                )
+            }
+            )}
 
 
 
@@ -27,7 +28,8 @@ class Card extends Component {
         return(
                 <Container>
                     <Col lg = "3">
-                        { this.state.users.map(usr => (
+                        {  
+                            this.state.users.map(usr => (
                             <CardRS body inverse color = {usr.alive? 'success' : 'danger'} key = {usr.id}>
                                 <CardBody>
                                     <CardImg top src= {usr.img} />
@@ -40,7 +42,7 @@ class Card extends Component {
                                     <Button onClick = {this.handleOnClick(usr.id)} >{usr.alive? 'kill' : 'revive'}</Button>
                                 </CardBody>
                             </CardRS>
-                        ))
+                            ))
                         }
                     </Col>
                 </Container>
@@ -48,4 +50,4 @@ class Card extends Component {
     }
 }
 
-export default Card;
+export default ListCards;

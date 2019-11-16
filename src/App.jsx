@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import Card from './components/card/Card';
+import ListCards from './components/listcards/ListCards';
 
 
 
 function App() {
   return(
     <div className="app">
-      <Card />
+      <ListCards />
     </div>
   );
 }
